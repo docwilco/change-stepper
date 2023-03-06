@@ -112,8 +112,8 @@ class StateMap {
 let documentStateMap = new StateMap();
 
 enum StepType {
-	nextToken,
-	previousToken,
+	nextWord,
+	previousWord,
 	nextLine,
 	previousLine,
 }
@@ -158,10 +158,10 @@ async function doStep(stepType: StepType): Promise<void> {
 		const tokens = state.getTokens();
 		state.steppingInProgress = true;
 		switch (stepType) {
-			case StepType.nextToken:
+			case StepType.nextWord:
 				state.currentToken = 0;
 				break;
-			case StepType.previousToken:
+			case StepType.previousWord:
 				state.currentToken = tokens.length - 2;
 				break;
 			case StepType.nextLine:
@@ -210,18 +210,18 @@ async function doStep(stepType: StepType): Promise<void> {
 	assert(state.remainingText !== undefined, 'Invalid state: remainingText is undefined');
 	assert(state.currentRange !== undefined, 'Invalid state: currentRange is undefined');
 	switch (stepType) {
-		case StepType.nextToken:
+		case StepType.nextWord:
 		case StepType.nextLine:
 			if (state.currentToken >= tokens.length - 1) {
 				state.currentToken = tokens.length - 1;
 				return;
 			}
-			const nextToken = state.currentToken + 1;
-			if (stepType === StepType.nextToken) {
-				state.currentToken = nextToken;
+			const nextWord = state.currentToken + 1;
+			if (stepType === StepType.nextWord) {
+				state.currentToken = nextWord;
 			} else {
 				// find next token ending with \n
-				for (let i = nextToken; i < tokens.length; i++) {
+				for (let i = nextWord; i < tokens.length; i++) {
 					if (tokens[i].endsWith('\n')) {
 						state.currentToken = i;
 						break;
@@ -231,7 +231,7 @@ async function doStep(stepType: StepType): Promise<void> {
 					}
 				}
 			}
-			let newText = tokens.slice(nextToken, state.currentToken + 1).join('');
+			let newText = tokens.slice(nextWord, state.currentToken + 1).join('');
 			state.remainingText = state.remainingText.substring(newText.length);
 			const insertAt = state.currentRange.end;
 			const currentStart = state.currentRange.start;
@@ -247,14 +247,14 @@ async function doStep(stepType: StepType): Promise<void> {
 				const newEnd = positionPlusOffset(document, insertAt, newText.length);
 				state.currentRange = new vscode.Range(currentStart, newEnd);
 			});
-		case StepType.previousToken:
+		case StepType.previousWord:
 		case StepType.previousLine:
 			if (state.currentToken <= -1) {
 				state.currentToken = -1;
 				return;
 			}
-			const previousToken = state.currentToken;
-			if (stepType === StepType.previousToken) {
+			const previousWord = state.currentToken;
+			if (stepType === StepType.previousWord) {
 				state.currentToken = state.currentToken - 1;
 			} else {
 				// find previous token ending with \n
@@ -271,7 +271,7 @@ async function doStep(stepType: StepType): Promise<void> {
 			// currentToken is the last visible, so we delete from the next one
 			// (first +1). We delete up to and including the previous one.
 			// second +1 is for because slice is exclusive of the end index.
-			const deleteTokens = tokens.slice(state.currentToken + 1, previousToken + 1);
+			const deleteTokens = tokens.slice(state.currentToken + 1, previousWord + 1);
 			const deleteText = deleteTokens.join('');
 			const deleteLength = deleteText.length;
 			const deleteStart = positionPlusOffset(document, state.currentRange.end, -deleteLength);
@@ -303,19 +303,19 @@ export function activate(context: vscode.ExtensionContext): void {
 		stateCopy.document = stateCopy.document.uri.toString();
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.next-token', async () => {
-		return doStep(StepType.nextToken);
+	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.nextWord', async () => {
+		return doStep(StepType.nextWord);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.previous-token', async () => {
-		return doStep(StepType.previousToken);
+	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.previousWord', async () => {
+		return doStep(StepType.previousWord);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.next-line', async () => {
+	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.nextLine', async () => {
 		return doStep(StepType.nextLine);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.previous-line', async () => {
+	context.subscriptions.push(vscode.commands.registerCommand('change-stepper.previousLine', async () => {
 		return doStep(StepType.previousLine);
 	}));
 

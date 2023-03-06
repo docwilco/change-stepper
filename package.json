@@ -1,8 +1,9 @@
 {
     "name": "change-stepper",
     "displayName": "Change Stepper",
-    "description": "",
-    "version": "0.0.1",
+    "repository": "https://github.com/docwilco/change-stepper",
+    "description": "Step forwards and backwards through a large single change (insert or suggestion accept) or selection, by line and word.",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.74.0"
     },
@@ -16,28 +17,40 @@
     "contributes": {
         "commands": [
             {
-                "command": "change-stepper.helloWorld",
-                "title": "Hello VS Code"
+                "command": "change-stepper.nextLine",
+                "title": "Change Stepper: Next Line"
+            },
+            {
+                "command": "change-stepper.previousLine",
+                "title": "Change Stepper: Previous Line"
+            },
+            {
+                "command": "change-stepper.nextWord",
+                "title": "Change Stepper: Next Word"
+            },
+            {
+                "command": "change-stepper.previousWord",
+                "title": "Change Stepper: Previous Word"
             }
         ],
         "keybindings": [
             {
-                "command": "change-stepper.next-line",
+                "command": "change-stepper.nextLine",
                 "key": "ctrl+alt+j",
                 "mac": "cmd+alt+j"
             },
             {
-                "command": "change-stepper.previous-line",
+                "command": "change-stepper.previousLine",
                 "key": "ctrl+alt+k",
                 "mac": "cmd+alt+k"
             },
             {
-                "command": "change-stepper.next-token",
+                "command": "change-stepper.nextWord",
                 "key": "ctrl+alt+l",
                 "mac": "cmd+alt+l"
             },
             {
-                "command": "change-stepper.previous-token",
+                "command": "change-stepper.previousWord",
                 "key": "ctrl+alt+h",
                 "mac": "cmd+alt+h"
             }
