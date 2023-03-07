@@ -1,15 +1,28 @@
 {
     "name": "change-stepper",
     "displayName": "Change Stepper",
-    "repository": "https://github.com/docwilco/change-stepper",
+    "publisher": "DocWilco",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "repository": "https://github.com/docwilco/change-stepper.git",
     "description": "Step forwards and backwards through a large single change (insert or suggestion accept) or selection, by line and word.",
     "version": "1.0.0",
+    "categories": [
+        "Other",
+        "Snippets"
+    ],
+    "keywords": [
+        "accept",
+        "partial",
+        "copilot",
+        "autocomplete",
+        "suggestion"
+    ],
+    "extensionKind": [
+        "workspace"
+    ],
     "engines": {
         "vscode": "^1.74.0"
     },
-    "categories": [
-        "Other"
-    ],
     "activationEvents": [
         "onStartupFinished"
     ],
