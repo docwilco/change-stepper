@@ -1,7 +1,8 @@
 {
     "name": "change-stepper",
     "displayName": "Change Stepper",
-    "publisher": "DocWilco",
+    "icon": "images/icon.jpg",
+    "publisher": "drwilco",
     "license": "SEE LICENSE IN LICENSE.md",
     "repository": "https://github.com/docwilco/change-stepper.git",
     "description": "Step forwards and backwards through a large single change (insert or suggestion accept) or selection, by line and word.",
