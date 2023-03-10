@@ -42,6 +42,9 @@ VSCode has built in support for stepping through suggestions, as of January 2023
 
 ## Release Notes
 
+### [1.0.1] - 2023-03-10
+Allow VSCode 1.73.0 in addition to 1.74.0 and up
+
 ### 1.0.0
 
 Initial release of Change Stepper
