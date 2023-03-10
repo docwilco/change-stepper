@@ -6,7 +6,7 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "repository": "https://github.com/docwilco/change-stepper.git",
     "description": "Step forwards and backwards through a large single change (insert or suggestion accept) or selection, by line and word.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "categories": [
         "Other",
         "Snippets"
